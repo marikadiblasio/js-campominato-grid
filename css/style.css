@@ -21,8 +21,14 @@ main {
     width: 70px;
 }
 .square{
-    width: calc(100% / 10);
-    height: calc(100% / 10);
+    /* width: calc(100% / 10);
+    height: calc(100% / 10); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border: 1px solid red;
+    cursor:cell;
 }
 .safe{
     background-color: #3bb0de;

@@ -19,3 +19,33 @@ Aggiungere una select accanto al bottone di generazione, che fornisca una scelta
  *      aggiungo classe già pronta nel css (no bg!), ;
  * 4.aggiungo eventilistener al quadratino (al click cambio bg e console.log dell'indice del quadratino);
  */
+
+//Richiamo gli elementi dall'html: form (il bottone submit è nel form)
+const btn = document.querySelector('form');
+
+//Scrivo la funzione per creare i quadratini
+function createSquares(){
+    let numSquares = 100;
+    let numSquareInRow = Math.sqrt(numSquares);
+    for (i = 1; i <= numSquares; i++){
+        const square = document.createElement('div');
+        square.classList.add('square');
+        square.style.width=`calc(100% / ${numSquareInRow})`;
+        square.style.height=square.style.width;
+        let index = square.innerHTML= i;
+        playground.appendChild(square);
+        square.addEventListener('click', function(){
+            square.classList.add('safe');
+            console.log(index);
+        });
+    }
+}
+//Scrivo la funzione Play - legata al submit
+function play(e){
+    e.preventDefault();
+    //let playground = '';
+    let playground = document.getElementById('playground');
+    console.log(playground);
+    createSquares()
+}
+btn.addEventListener('submit', play);
