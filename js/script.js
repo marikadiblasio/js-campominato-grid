@@ -10,3 +10,12 @@ Aggiungere una select accanto al bottone di generazione, che fornisca una scelta
 - con difficoltà 2 => 81 caselle, con un numero compreso tra 1 e 81, divise in 9 caselle per 9 righe;
 - con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 caselle per 7 righe;
  */
+
+/**
+ * 1. Creo html e bottone da richiamare in js
+ * 2.Aggiungo eventlistener e evento al click (o submit se utilizzo un form)
+ * 3.funzione per generare la griglia (quadratini da unserire nel div dell'html) -
+ *      creo div, il numero dei div è da indicare con una variabile (che per il bonus dipenderà da value di select) -
+ *      aggiungo classe già pronta nel css (no bg!), ;
+ * 4.aggiungo eventilistener al quadratino (al click cambio bg e console.log dell'indice del quadratino);
+ */

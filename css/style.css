@@ -1,0 +1,29 @@
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    /* background-color: #ffc21b7a; */
+}
+header, footer {
+    /* background-color: #a4daf9; */
+    height: 80px;
+}
+main {
+    height: calc(100% - 160px);
+    overflow-y: auto;
+
+}
+#playground{
+    width: 40vw;
+    height: 40vw;
+}
+.w-h70{
+    height: 70px;
+    width: 70px;
+}
+.square{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+.safe{
+    background-color: #3bb0de;
+}
