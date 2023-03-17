@@ -22,10 +22,23 @@ Aggiungere una select accanto al bottone di generazione, che fornisca una scelta
 
 //Richiamo gli elementi dall'html: form (il bottone submit è nel form)
 const btn = document.querySelector('form');
+let playground = document.getElementById('playground');
 
 //Scrivo la funzione per creare i quadratini
 function createSquares(){
-    let numSquares = 100;
+    let numSquares;
+    const level = document.getElementById('level').value;
+    switch (level){
+        case 'easy': 
+            numSquares = 100;
+            break;
+        case 'medium':
+            numSquares = 81;
+            break;
+        case 'hard':
+            numSquares = 49;
+            break;
+    }
     let numSquareInRow = Math.sqrt(numSquares);
     for (i = 1; i <= numSquares; i++){
         const square = document.createElement('div');
@@ -43,9 +56,9 @@ function createSquares(){
 //Scrivo la funzione Play - legata al submit
 function play(e){
     e.preventDefault();
-    //let playground = '';
-    let playground = document.getElementById('playground');
+    playground.innerHTML = "";
     console.log(playground);
     createSquares()
 }
+//Aggiungo la funzione al submit
 btn.addEventListener('submit', play);
