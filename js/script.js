@@ -10,7 +10,6 @@ Aggiungere una select accanto al bottone di generazione, che fornisca una scelta
 - con difficoltà 2 => 81 caselle, con un numero compreso tra 1 e 81, divise in 9 caselle per 9 righe;
 - con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 caselle per 7 righe;
  */
-
 /**
  * 1. Creo html e bottone da richiamare in js
  * 2.Aggiungo eventlistener e evento al click (o submit se utilizzo un form)
@@ -19,14 +18,34 @@ Aggiungere una select accanto al bottone di generazione, che fornisca una scelta
  *      aggiungo classe già pronta nel css (no bg!), ;
  * 4.aggiungo eventilistener al quadratino (al click cambio bg e console.log dell'indice del quadratino);
  */
-
 //Richiamo gli elementi dall'html: form (il bottone submit è nel form)
 const btn = document.querySelector('form');
-let playground = document.getElementById('playground');
-
-//Scrivo la funzione per creare i quadratini
-function createSquares(){
-    let numSquares;
+// costruisco i quadrati
+function createSquares(content, numberinRow){
+    const square = document.createElement('div');
+        square.classList.add('square');
+        square.style.width=`calc(100% / ${numberinRow})`;
+        square.style.height=square.style.width;
+        square.innerHTML= content;
+    return square;
+}
+//Scrivo la funzione per generare bombe casuali
+function rndBombs(rndLength, choiceRange){
+  const bombs = [];
+    while (bombs.length < rndLength){
+        const bomb = getRndNumIncl(1, choiceRange);
+        if (!bombs.includes(bomb)){
+            bombs.push(bomb);
+        }
+    } 
+    return bombs;
+}
+//Scrivo la funzione per creare tutto il playground
+function createGrid(){
+    //Accerto il livello e lo collego al numero di quadrati
+    //let numSquares;
+    const NUM_BOMBS = 16;
+    //let numSquares;
     const level = document.getElementById('level').value;
     switch (level){
         case 'easy': 
@@ -39,26 +58,36 @@ function createSquares(){
             numSquares = 49;
             break;
     }
+    //Genero le bombe
+    const bombs = rndBombs(NUM_BOMBS, numSquares);
+    //Calcolo il numero di quadrati per riga -->fondamentale per stabilire la grandezza dei quadratini
     let numSquareInRow = Math.sqrt(numSquares);
     for (i = 1; i <= numSquares; i++){
-        const square = document.createElement('div');
-        square.classList.add('square');
-        square.style.width=`calc(100% / ${numSquareInRow})`;
-        square.style.height=square.style.width;
-        let index = square.innerHTML= i;
-        playground.appendChild(square);
-        square.addEventListener('click', function(){
-            square.classList.add('safe');
-            console.log(index);
-        });
-    }
-}
+        //riprendo il quadratino creato e 'ritornato' dalla funzione e lo inserisco nel playground
+    const square = createSquares(i, numSquareInRow);
+    playground.appendChild(square);
+    square.addEventListener('click', function(){
+        const x = parseInt(square.innerHTML);
+        if (bombs.includes(x)){
+            square.classList.add('unsafe');
+             } else 
+             {square.classList.add('safe');
+        }
+    });
+}}
 //Scrivo la funzione Play - legata al submit
 function play(e){
     e.preventDefault();
+    //let numSquares;
+    let playground = document.getElementById('playground');
+    //const square = document.createElement('div');
+    //cancello il playground prima del nuovo gioco
     playground.innerHTML = "";
-    console.log(playground);
-    createSquares()
+    //creo griglia con quadratini
+    createGrid();
+    //inizio il conteggio dei punti
+    //prendo l'h3 in cui inserire il punteggio
+    //let pointsMsg = document.querySelector('h3');
 }
 //Aggiungo la funzione al submit
 btn.addEventListener('submit', play);
