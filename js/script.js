@@ -43,9 +43,8 @@ function rndBombs(rndLength, choiceRange){
 //Scrivo la funzione per creare tutto il playground
 function createGrid(){
     //Accerto il livello e lo collego al numero di quadrati
-    //let numSquares;
+    let numSquares;
     const NUM_BOMBS = 16;
-    //let numSquares;
     const level = document.getElementById('level').value;
     switch (level){
         case 'easy': 
@@ -64,30 +63,48 @@ function createGrid(){
     let numSquareInRow = Math.sqrt(numSquares);
     for (i = 1; i <= numSquares; i++){
         //riprendo il quadratino creato e 'ritornato' dalla funzione e lo inserisco nel playground
-    const square = createSquares(i, numSquareInRow);
-    playground.appendChild(square);
-    square.addEventListener('click', function(){
+        const square = createSquares(i, numSquareInRow);
+        playground.appendChild(square);
+        square.addEventListener('click', function(){
         const x = parseInt(square.innerHTML);
         if (bombs.includes(x)){
             square.classList.add('unsafe');
              } else 
              {square.classList.add('safe');
+            }
         }
-    });
-}}
+    );}
+}
+//Scrivo la funzione per contare i punti
+function counter(){
+    let pointsMsg = document.querySelector('h4');
+    let points = document.getElementById('points').innerText;
+    pointsMsg.innerHTML = `Il tuo punteggio è ${points}`;
+    console.log(points);
+    increment = ++points;
+    pointsMsg.innerHTML = `Il tuo punteggio è <span id="points">${increment}</span>`;
+    console.log(increment);
+    return increment
+}   
 //Scrivo la funzione Play - legata al submit
 function play(e){
     e.preventDefault();
-    //let numSquares;
+    //prendo e cancello il playground prima del nuovo gioco
     let playground = document.getElementById('playground');
-    //const square = document.createElement('div');
-    //cancello il playground prima del nuovo gioco
     playground.innerHTML = "";
+    //prendo e azzero h4 del punteggio e punteggio
+    let points = document.getElementById('points').innerText;
+    let pointsMsg = document.querySelector('h4');
+    pointsMsg.innerHTML = `Seleziona il livello e inizia a giocare!  <span id="points"></span>`;
+    points = "";
     //creo griglia con quadratini
     createGrid();
-    //inizio il conteggio dei punti
-    //prendo l'h3 in cui inserire il punteggio
-    //let pointsMsg = document.querySelector('h3');
+    const squares = document.querySelectorAll('.square');
+    //inserisco il contatore
+    for (let p = 0; p < squares.length; p++){
+        squares[p].addEventListener('click',counter);
+    }
 }
+
 //Aggiungo la funzione al submit
 btn.addEventListener('submit', play);

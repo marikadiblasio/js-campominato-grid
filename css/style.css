@@ -3,12 +3,15 @@
     height: 100vh;
     /* background-color: #ffc21b7a; */
 }
-header, footer {
+header {
     /* background-color: #a4daf9; */
     height: 80px;
 }
+footer{
+    height: 60px;
+}
 main {
-    height: calc(100% - 160px);
+    height: calc(100% - 140px);
     overflow-y: auto;
 
 }
